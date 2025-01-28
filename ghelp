@@ -1,0 +1,64 @@
+-------------------------------
+|        GENERAL HELP:        |
+-------------------------------
+
+Welcome to 2FA Help! This is a 2-Factor Authentication module for Linux designed to work with standard Authenticator smartphone APPs.
+
+USAGE:
+If 2FA is setup correctly (see first time setup manual) all you need is to create a new account on your Authenticator Smartphone App using the same datails as in the 2FA setup. After 2FA and your Authenticator App are correctly in sync, you will be able to authenticate your account using the codes provided by the Authenticator App along with your password.
+
+2FA nor the Authenticator App need internet connection, nor any form of communication between them after they have been setup.
+
+0)HELP: Help menu.
+
+1)SETUP:
+Use this option to select the desired mode of operation (Counter mode/Time Based mode - see below for details) to create all the needed files on your home directory. Please note that this directory is fixed and cannot be changed. If your authenticator app does not allow you to choose between Counter-mode and Time-based mode, usually Time-based is the only suppoerted mode.
+
+The option 3)System Setup will attempt to setup your Operating System to work with 2FA. Note that this option can only be launched AFTER user configuration (selecting a desired mode of operation and creating a key). Also note that this option is very sensitive and expects an exact format on the Operating System files to be modified, so if you have any custom changes to /etc/pam.d/common-auth or /etc/ssh/sshd_config this option is very likely to fail and you will need to setup your system manually (see First Time Setup help manual).
+
+Counter Mode: 
+It works based on counters. Each time you input a correct code the counter increases. This mode relies on both counters (The one on the Authenticator App and the one on this machine) to be synced. In order to stay synced, 2FA is accepts the current code as well as the next 3 valid codes, then adjusts it’s internal counter to resynch.
+Please note that, when using counter mode, entering the correct verification code will always increase the internal counter, even if the whole authentication procedure fails (for example if you type the correct Verification Code followed by an incorrect user password).
+
+Time Based: 
+This is considered a more secure alternative to counter mode. Each code is valid for 30 seconds only. It relies on both clocks (The one on the Authenticator App and the one on this machine) to be synced. Due to small drifts in the clocks, this module accepts the current code as well as the next and prior valid codes.
+
+2)KEY MANAGEMENT:
+Use this menu to create and manage your private key. Make sure to keep this private and not share it with anyone. Select 1)Create New Key to create a new private key. 
+
+When a new key is created, you will also be presented with a MAGIC CODE and a MAGIC PASSWORD. This are essential for the recovery procedure SAVE THIS AND KEEP THEM SAFE! YOU WON’T BE ABLE TO RETRIEVE THEM LATER!
+
+Use the option 2)View Key option to show your current key. You will need this key to configure your Authenticator APP account. The option 3)Test Code allows you to test if your Authenticator App and 2FA are correctly in sync (Magic Code & Magic Password can be tested here as well).
+
+3)SELECT SERVICES:
+Use this option to select the services you want 2FA to work on. Options are SUDO, SU, LOGIN (Login Screen and Login through console) and SSH. Please note that these only apply when SU-ing/Logging in/SSH-ing to your account or SUDO-ing from your account. If 2FA is configured correctly, changes take effect immediately.
+
+If you want 2FA to work for more than 1 user, an instance of 2FA Configurator should be run on each of them.
+
+4)CURRENT STATE:
+Use this option to show the module's current working state. This will show the mode of opperation selected (Counter-Mode or Time-Based) and extra information depending on the mode configured. Use the Integrity check value to confirm that your Authenticator APP and 2FA share the exact same key.
+
+SSH:
+Please note that for SSH, for security reasons, you will always be prompted for a Verification Code, even if 2FA is disabled for it, or the referenced user does not have a 2FA configuration. 
+On these cases, the Verification Code supplied will not be checked and the authentication will rely solely on your user password (or whichever authentication method your SSH Server is configured to work with).
+
+RECOVERY PROCEDURE:
+As stated above, when a new private key is created, a MAGIC CODE and MAGIC PASSWORD are also created. This set is unique to your user and is the only way to access your system if you ever lose your phone, or if your app and your system get out of sync.
+
+To launch the recovery procedure, simply use your MAGIC CODE when your system asks for the Verification Code, then type your MAGIC PASSWORD when the system prompts for your password. Note that for the recovery procedure to work you need to enter both your MAGIC CODE and MAGIC PASSWORD correctly. For example, combinations of MAGIC CODE and user password, or Verification Code and MAGIC PASSWORD will not work.
+
+CONSIDERATIONS:
+When using Counter mode, avoid prompting for codes from the Authenticator app if they are not gonna be used to access your system. Doing this may cause the app and your system to go irreparably out of sync. As stated above, 2FA can detect and resynch when the difference is up to 3, but no more. Exceeding this difference will cause the codes to no longer be accepted by your system. You can always verify the current saved counter on your system with the option 4) Current State.
+
+When using Time Based mode, make sure the system shares the same time with your smartphone. It doesn’t have to be exact to the second, but make sure the difference is less than 1 minute or as small as possible.
+
+TESTED AUTHENTICATOR APPS:
+The following authenticator apps have been tested to work with this module:
+
+	- Google Authenticator
+	- Authy Authenticator
+	- LastPass Authenticator
+
+Due to the use of standard algorithms (IETF RFCs 4226 and 6238) most authenticator apps should work, but special care should be taken with those not listed here. To make sure a certain authenticator app works as intented, use the option 2)Key Management > 3)Test Code to test a few codes.
+
+----------END-OF-FILE----------

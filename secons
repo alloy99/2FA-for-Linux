@@ -1,0 +1,17 @@
+-------------------------------
+|   SECURITY CONSIDERATIONS:  |
+-------------------------------
+
+1)PURPOSE:
+The purpose of this application is to provide an extra layer of security to the system, aimed at environments in which non-authorized access is considered a significant risk. Nonetheless, 2FA shouldn’t be considered as the ultimate security solution and should never be the only security measure in place for high-security environments.
+
+
+2)CONSIDERATIONS:
+It is important to understand that 2FA protects the access to your system, not your data. Therefore, while 2FA is effective against common authentication attacks (like credential brute-forcing or stealing), it cannot protect against non-authorized access to data through means that bypass the Operating System’s normal authentication methods (like reading from the hard drive directly).
+
+Therefore, if security is to be achieved against these kind of attacks, other security measures should be considered.
+
+3)WARRANTY:
+2FA is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+----------END-OF-FILE----------

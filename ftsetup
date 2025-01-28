@@ -1,0 +1,28 @@
+-------------------------------
+|    2FA FIRST TIME SETUP:    |
+-------------------------------
+
+When setting up for the first time, first select 1)Setup and your desired mode of operation (see general help for more info). This will create all the necessary files for your user to work with 2FA.
+
+Now, it’s time to create your private key. Go to 2)Key Management > 1)Create New Key to create the private key for your user. If the key is created successfully you will also receive a “MAGIC CODE” and a “MAGIC PASSWORD” write these down and save them somewhere safe, as you won’t be able to retrieve them later! FOR REAL, WRITE THESE DOWN! you will need them for the recovery procedure (see general help for more details). REMEMBER TO KEEP YOUR KEY, MAGIC CODE AND MAGIC PASSWORD PRIVATE!
+
+Use the option 2)View Key to display your private key. Now you can configure your Authenticator App using this key. You can make sure your app and 2FA are correctly in sync by testing a few codes with the option 3)Test Code.
+
+Now you can Setup 2FA to work on your Operating System. Go to 1)Setup > 3)System Setup to attempt to setup automatically. If this process fails for any reason, refer to the section OPERATING SYSTEM FIRST TIME MANUAL SETUP. 
+
+Proceed to select the services you would like 2FA to work with, using the option 3)Select Services from the main menu. Options are SUDO, SU, LOGIN and SSH. See general help for more info.
+
+WARNING!
+The files to be edited by 2FA are very sensitive and core to the operation of your operating system. In order to avoid unpleasant surprises, it is recommended to test the behavior of the system for services like su or sudo before activating it for SSH or Login.
+
+OPERATING SYSTEM FIRST TIME MANUAL SETUP
+Attempt this if the option 1)Setup > 3)System Setup fails for any reason:
+Navigate to /etc/pam.d or /etc/pam.conf (depending on your system) and edit the file named "common-auth" to add the line "auth [success=2 ignore=ignore perm_denied=1 default=bad] pam_2fa.so" just before the line "auth [success=1 default=ignore] pam_unix.so nullok_secure". Make sure the numbers after success and perm_denied in the line you just added coincide with the number of "jumps" to reach the lines referring to pam_permit.so and pam_deny.so respectively.
+
+Finally, copy the file "pam_2fa.so" to "/lib/security/", "/lib/x86_64-linux-gnu/security/", or "/lib64/security/" (depending on your system) and set the permissions on pam_2fa.so to 644 and ownership to root. You need SUDO for this actions.
+
+For Open SSH, navigate to /etc/ssh/ and edit sshd_config changing the line ChallengeResponseAuthentication to yes. Finally restart your SSH Server.
+
+If everything was done correctly, 2FA should be ready to work on your system.
+
+----------END-OF-FILE----------

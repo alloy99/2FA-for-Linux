@@ -1,0 +1,25 @@
+-------------------------------
+|            ABOUT:           |
+-------------------------------
+
+2FA
+Version: 1.0 – August 2016
+
+Author: Jesus Luis C. Ghio S. (luis_snd2@hotmail.com)
+        for University of Birmingham
+        Summer 2016 Final Project
+        MSc Cyber Security
+
+Thanks to Eike Ritter for his supervision, my friends and family for their support, my girlfriend for all her help with testing and opinions and the several professors and PHD students who helped me with advice and problems during the development of this project.
+
+And finally thanks to you, user, for using 2FA :).
+
+-------------------------------
+
+This file is part of 2FA.
+
+2FA is free software and it can be redistributed and/or modified at will. If done, please credit the author.
+
+2FA is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+----------END-OF-FILE----------
